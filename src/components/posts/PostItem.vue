@@ -5,7 +5,7 @@
       {{ content }}
     </p>
     <p class="text-muted">
-      {{ createAt }}
+      {{ createdAt }}
     </p>
   </AppCard>
 </template>
@@ -22,7 +22,7 @@ defineProps({
     type: String,
     required: true,
   },
-  createAt: {
+  createdAt: {
     type: [String, Date, Number],
   },
 });
