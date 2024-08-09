@@ -3,6 +3,8 @@
     <div class="mb-3">
       <label for="exampleFormControlInput1" class="form-label">제목</label>
       <input
+        v-focus
+        v-color="'#48D1CC'"
         :value="title"
         @input="$emit('update:title', $event.target.value)"
         type="text"

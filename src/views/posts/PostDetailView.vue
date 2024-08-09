@@ -2,7 +2,9 @@
   <div>
     <h2>{{ post.title }}</h2>
     <p>{{ post.content }}</p>
-    <p class="text-muted">{{ post.createdAt }}</p>
+    <p class="text-muted">
+      {{ formattedDateTime(post.createdAt) }}
+    </p>
     <hr class="my-4" />
     <div class="row g-2">
       <div class="col-auto">
@@ -31,7 +33,9 @@
 import { useRouter } from 'vue-router';
 import { getPostById, deletePost } from '@/api/posts';
 import { ref } from 'vue';
+import { useFormattedDateTime } from '@/composables/formattedDateTime';
 
+const formattedDateTime = useFormattedDateTime();
 const props = defineProps({
   id: String,
 });

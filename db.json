@@ -1,66 +1,6 @@
 {
   "posts": [
     {
-      "id": 1,
-      "title": "제목1",
-      "content": "내용1",
-      "createdAt": "2024-08-01"
-    },
-    {
-      "id": 2,
-      "title": "제목2",
-      "content": "내용2",
-      "createdAt": "2024-08-02"
-    },
-    {
-      "id": 3,
-      "title": "제목3",
-      "content": "내용3",
-      "createdAt": "2024-08-03"
-    },
-    {
-      "id": 4,
-      "title": "제목4",
-      "content": "내용4",
-      "createdAt": "2024-08-04"
-    },
-    {
-      "id": 5,
-      "title": "제목5",
-      "content": "내용5",
-      "createdAt": "2024-08-05"
-    },
-    {
-      "id": 6,
-      "title": "제목6",
-      "content": "내용6",
-      "createdAt": "2024-08-06"
-    },
-    {
-      "id": 7,
-      "title": "제목7",
-      "content": "내용7",
-      "createdAt": "2024-08-07"
-    },
-    {
-      "id": 8,
-      "title": "제목8 수정",
-      "content": "내용8 수정",
-      "createdAt": "2024-08-08"
-    },
-    {
-      "id": 9,
-      "title": "제목9",
-      "content": "내용9",
-      "createdAt": "2024-08-09"
-    },
-    {
-      "id": 10,
-      "title": "제목10",
-      "content": "내용10",
-      "createdAt": "2024-08-10"
-    },
-    {
       "title": "테스트1",
       "content": "테스트1",
       "createdAt": 1723105337991,
@@ -71,6 +11,60 @@
       "content": "테스트2",
       "createdAt": 1723105347328,
       "id": 12
+    },
+    {
+      "title": "test 수정",
+      "content": "test입니다",
+      "createdAt": 1723190080897,
+      "id": 13
+    },
+    {
+      "title": "안녕하세요",
+      "content": "안녕하세요",
+      "createdAt": 1723190537925,
+      "id": 14
+    },
+    {
+      "title": "test",
+      "content": "test",
+      "createdAt": 1723193393566,
+      "id": 15
+    },
+    {
+      "title": "test2",
+      "content": "test2",
+      "createdAt": 1723193501644,
+      "id": 16
+    },
+    {
+      "title": "test3",
+      "content": "test3",
+      "createdAt": 1723193658265,
+      "id": 17
+    },
+    {
+      "title": "test4",
+      "content": "test4",
+      "createdAt": 1723194085080,
+      "id": 18
+    },
+    {
+      "title": "test제목",
+      "content": "test 내용",
+      "createdAt": 1723194145066,
+      "id": 19
+    },
+    {
+      "title": "test5 수정",
+      "content": "test5 수정",
+      "createdAt": 1723196414418,
+      "id": 20
+    },
+    {
+      "title": "test6",
+      "content": "test6",
+      "createdAt": 1723196631243,
+      "id": 21
     }
   ]
 }

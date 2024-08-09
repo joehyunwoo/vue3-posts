@@ -5,13 +5,22 @@
       {{ content }}
     </p>
     <p class="text-muted">
-      {{ createdAt }}
+      {{ formattedDateTime(createdAt) }}
     </p>
+    <template #footer>
+      <div class="d-flex flex-row-reverse">
+        <button class="btn p-0" @click.stop="$emit('modal')">
+          <i class="bi bi-window"></i>
+        </button>
+      </div>
+    </template>
   </AppCard>
 </template>
 
 <script setup>
-import AppCard from '../AppCard.vue';
+import { useFormattedDateTime } from '@/composables/formattedDateTime';
+
+const formattedDateTime = useFormattedDateTime();
 
 defineProps({
   title: {
@@ -26,6 +35,7 @@ defineProps({
     type: [String, Date, Number],
   },
 });
+defineEmits(['modal']);
 </script>
 
 <style lang="scss" scoped></style>
