@@ -15,13 +15,9 @@
 </template>
 
 <script setup>
-defineProps({
-  alerts: {
-    type: Array,
-    required: true,
-  },
-});
+import { useAlert } from '@/composables/alert';
 
+const { alerts } = useAlert();
 const typeStyle = alertType =>
   alertType === 'success' ? 'alert-primary' : 'alert-danger';
 </script>

@@ -4,7 +4,7 @@
       <div class="col">
         <input
           :value="searchTitle"
-          @input="$emit('update:searchTitle', $event.target.value)"
+          @input="changeSearchTitle"
           type="text"
           class="form-control"
           placeholder="제목으로 검색해주세요."
@@ -16,9 +16,9 @@
           @input="$emit('update:viewLimit', $event.target.value)"
           class="form-select"
         >
-          <option value="3">3개씩 보기</option>
           <option value="6">6개씩 보기</option>
-          <option value="9">9개씩 보기</option>
+          <option value="12">12개씩 보기</option>
+          <option value="18">18개씩 보기</option>
         </select>
       </div>
     </div>
@@ -26,15 +26,29 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+
 defineProps({
   searchTitle: {
     type: String,
   },
   viewLimit: {
-    type: Number,
+    type: [Number, String],
   },
 });
-defineEmits(['update:searchTitle', 'update:viewLimit']);
+const emit = defineEmits(['update:searchTitle', 'update:viewLimit']);
+
+const valid = ref(true);
+const changeSearchTitle = event => {
+  if (valid.value === false) {
+    return;
+  }
+  valid.value = false;
+  setTimeout(() => {
+    emit('update:searchTitle', event.target.value);
+    valid.value = true;
+  }, 500);
+};
 </script>
 
 <style lang="scss" scoped></style>

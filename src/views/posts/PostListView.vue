@@ -5,26 +5,40 @@
     <hr class="my-4" />
 
     <PostFilter
-      v-model:searchTitle="postSortParams.title_like"
-      v-model:viewLimit="postSortParams._limit"
+      v-model:searchTitle="params.title_like"
+      :viewLimit="params._limit"
+      @update:viewLimit="changeLimit"
     />
 
     <hr class="my-4" />
 
-    <AppGrid v-slot="{ item }" :items="posts">
-      <PostItem
-        :title="item.title"
-        :content="item.content"
-        :created-at="item.createdAt"
-        @Click="goDetailPage(item.id)"
-        @modal="openModal(item)"
-      ></PostItem>
-    </AppGrid>
-    <AppPagination
-      :current-page="postSortParams._page"
-      :page-cnt="pageCnt"
-      @page="page => (postSortParams._page = page)"
-    />
+    <AppLoading v-if="loading"></AppLoading>
+
+    <AppError v-else-if="error" :message="error.message"></AppError>
+
+    <template v-else-if="!isExist">
+      <p class="text-center py-5 text-muted">No Results</p>
+    </template>
+
+    <template v-else>
+      <AppGrid :items="posts" col-class="col-12 col-md-6 col-lg-4">
+        <template v-slot="{ item }">
+          <PostItem
+            :title="item.title"
+            :content="item.content"
+            :created-at="item.createdAt"
+            @Click="goDetailPage(item.id)"
+            @modal="openModal(item)"
+            @preview="selectPreview(item.id)"
+          ></PostItem>
+        </template>
+      </AppGrid>
+      <AppPagination
+        :current-page="params._page"
+        :page-cnt="pageCnt"
+        @page="page => (params._page = page)"
+      />
+    </template>
     <Teleport to="#modal">
       <PostModal
         v-model:show="show"
@@ -33,11 +47,12 @@
         :modalPostCreatedAt="modalPostCreatedAt"
       />
     </Teleport>
-    <hr class="my-5" />
-
-    <AppCard>
-      <PostDetailView id="11"></PostDetailView>
-    </AppCard>
+    <template v-if="previewId">
+      <hr class="my-5" />
+      <AppCard>
+        <PostDetailView :id="previewId"></PostDetailView>
+      </AppCard>
+    </template>
   </div>
 </template>
 
@@ -46,11 +61,13 @@ import PostItem from '@/components/posts/PostItem.vue';
 import PostDetailView from './PostDetailView.vue';
 import PostFilter from '@/components/posts/PostFilter.vue';
 import PostModal from '@/components/posts/PostModal.vue';
-import { getPosts } from '@/api/posts';
-import { computed, ref, watchEffect } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
-const posts = ref([]);
+import { useAxios } from '@/composables/axios';
+
 const router = useRouter();
+const previewId = ref(null);
+const selectPreview = id => (previewId.value = id);
 
 const goDetailPage = id => {
   router.push({
@@ -62,28 +79,23 @@ const goDetailPage = id => {
 };
 
 //pagination
-const postSortParams = ref({
+const params = ref({
   _sort: 'createdAt',
   _order: 'desc',
   _page: 1,
-  _limit: 3,
+  _limit: 6,
   title_like: '',
 });
-const totalCnt = ref(0);
+const totalCnt = computed(() => respose.value.headers['x-total-count']);
 const pageCnt = computed(() => {
-  return Math.ceil(totalCnt.value / postSortParams.value._limit);
+  return Math.ceil(totalCnt.value / params.value._limit);
 });
-
-const fetchPosts = async () => {
-  try {
-    const { data, headers } = await getPosts(postSortParams.value);
-    posts.value = data;
-    totalCnt.value = headers['x-total-count'];
-  } catch (err) {
-    console.log(err);
-  }
+const changeLimit = limit => {
+  params.value._limit = limit;
+  params.value._page = 1;
 };
-watchEffect(fetchPosts);
+const { respose, data: posts, error, loading } = useAxios('/posts', { params });
+const isExist = computed(() => posts.value && posts.value.length > 0);
 
 //modal
 const show = ref(false);

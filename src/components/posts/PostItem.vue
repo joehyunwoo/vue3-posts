@@ -1,7 +1,7 @@
 <template>
   <AppCard>
-    <h5 class="card-title">{{ title }}</h5>
-    <p class="card-text">
+    <h5 class="card-title text-truncate">{{ title }}</h5>
+    <p class="card-text text-truncate">
       {{ content }}
     </p>
     <p class="text-muted">
@@ -9,8 +9,11 @@
     </p>
     <template #footer>
       <div class="d-flex flex-row-reverse">
-        <button class="btn p-0" @click.stop="$emit('modal')">
+        <button class="btn p-1" @click.stop="$emit('modal')">
           <i class="bi bi-window"></i>
+        </button>
+        <button class="btn p-1" @click.stop="$emit('preview')">
+          <i class="bi bi-clipboard-plus"></i>
         </button>
       </div>
     </template>
@@ -35,7 +38,7 @@ defineProps({
     type: [String, Date, Number],
   },
 });
-defineEmits(['modal']);
+defineEmits(['modal', 'preview']);
 </script>
 
 <style lang="scss" scoped></style>
